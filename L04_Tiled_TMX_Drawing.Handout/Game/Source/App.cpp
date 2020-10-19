@@ -97,6 +97,11 @@ bool App::Awake()
 			item = item->next;
 		}
 	}
+	pugi::xml_parse_result result = saveLoadFile.load_file("save_game.xml");
+	if (result != NULL)
+	{
+		saveLoadNode = saveLoadFile.child("save_state");
+	}
 
 	return ret;
 }
@@ -293,33 +298,17 @@ void App::SaveGameRequest() const
 // then call all the modules to load themselves
 bool App::LoadGame()
 {
-	bool ret = false;
-
-	pugi::xml_document data;
-	pugi::xml_node root;
-
-	pugi::xml_parse_result result = data.load_file(loadedGame.GetString());
+	bool ret = true;
 	
-	if (result != NULL)
+	ListItem<Module*>* item;
+	item = modules.start;
+
+	while (item != NULL && ret == true)
 	{
-		LOG("Loading new Game State from %s...", loadedGame.GetString());
-
-		root = data.child("save_state");
-
-		ListItem<Module*>* item = modules.start;
-		ret = true;
-
-		while (item != NULL && ret == true)
-		{
-			ret = item->data->LoadState(root.child(item->data->name.GetString()));
-			item = item->next;
-		}
-
-		data.reset();
-		if (ret == true) LOG("...finished loading");
-		else LOG("...loading process interrupted with error on module %s", item->data->name.GetString());
+		ret = item->data->LoadState(saveLoadNode.child(item->data->name.GetString()));
+		item = item->next;
 	}
-	else LOG("Could not parse game state xml file %s. Pugi error: %s", loadedGame.GetString(), result.description());
+	saveLoadFile.reset();
 
 	loadGameRequested = false;
 
@@ -331,30 +320,15 @@ bool App::SaveGame() const
 {
 	bool ret = true;
 
-	LOG("Saving Game State to %s...", savedGame.GetString());
-
-	pugi::xml_document data;
-	pugi::xml_node root;
-
-	root = data.append_child("save_state");
-
-	ListItem<Module*>* item = modules.start;
+	ListItem<Module*>* item;
+	item = modules.start;
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->SaveState(root.append_child(item->data->name.GetString()));
+		ret = item->data->SaveState(saveLoadNode.child(item->data->name.GetString()));
 		item = item->next;
 	}
-
-	if (ret == true)
-	{
-		data.save_file(savedGame.GetString());
-		LOG("...finished saving");
-	}
-	else LOG("Save process halted from an error in module %s", item->data->name.GetString());
-
-	data.reset();
-
+	saveLoadFile.save_file("save_game.xml");
 	saveGameRequested = false;
 
 	return ret;
