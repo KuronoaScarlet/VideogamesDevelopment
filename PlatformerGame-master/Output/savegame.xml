@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<save>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<scene />
+	<player>
+		<position x="50" y="281.200012" />
+	</player>
+	<enemies>
+		<position x="261" y="244" />
+	</enemies>
+	<renderer>
+		<camera x="0" y="-200" />
+	</renderer>
+</save>
