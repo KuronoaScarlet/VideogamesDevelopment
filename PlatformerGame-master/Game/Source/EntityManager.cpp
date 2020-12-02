@@ -5,6 +5,8 @@
 #include "Textures.h"
 
 #include "GroundEnemy.h"
+#include "Hearts.h"
+#include "Coins.h"
 
 EntityManager::EntityManager() : Module()
 {
@@ -19,6 +21,8 @@ bool EntityManager::Awake()
 bool EntityManager::Start()
 {
 	gEnemyTexture = app->tex->Load("Assets/Textures/Enemy.png");
+	heartsTexture = app->tex->Load("Assets/Textures/life.png");
+	coinsTexture = app->tex->Load("Assets/Textures/coins.png");
 
 	return true;
 }
@@ -67,8 +71,16 @@ void EntityManager::AddEntity(fPoint position, Entity::Type type)
 	switch (type)
 	{
 	case Entity::Type::GROUND_ENEMY:
-		Entity* entity = (Entity*)(new GroundEnemy(position, gEnemyTexture, type));
-		entityList.add(entity);
+		gEnemy = (Entity*)(new GroundEnemy(position, gEnemyTexture, type));
+		entityList.add(gEnemy);
+		break;
+	case Entity::Type::HEARTS:
+		heart = (Entity*)(new Hearts(position, heartsTexture, type));
+		entityList.add(heart);
+		break;
+	case Entity::Type::COINS:
+		coin = (Entity*)(new Coins(position, coinsTexture, type));
+		entityList.add(coin);
 		break;
 	}
 }

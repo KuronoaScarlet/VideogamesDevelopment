@@ -41,6 +41,12 @@ private:
 	List<Entity*> entityList;
 
 	SDL_Texture* gEnemyTexture;
+	SDL_Texture* heartsTexture;
+	SDL_Texture* coinsTexture;
+
+	Entity* gEnemy;
+	Entity* heart;
+	Entity* coin;
 };
 
 #endif // _ENTITYMANAGER_H_

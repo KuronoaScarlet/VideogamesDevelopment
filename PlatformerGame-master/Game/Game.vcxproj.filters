@@ -46,6 +46,12 @@
     <ClCompile Include="Source\GruondEnemy.cpp">
       <Filter>Entities\NonPlayable</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Hearts.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Coins.cpp">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Window.h" />
@@ -113,6 +119,12 @@
       <Filter>Entities</Filter>
     </ClInclude>
     <ClInclude Include="Source\GroundEnemy.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Hearts.h">
+      <Filter>Entities\NonPlayable</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Coins.h">
       <Filter>Entities\NonPlayable</Filter>
     </ClInclude>
   </ItemGroup>

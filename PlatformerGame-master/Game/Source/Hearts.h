@@ -1,5 +1,5 @@
-#ifndef _GROUNDENEMY_H_
-#define _GROUNDENEMY_H_
+#ifndef _HEARTS_H_
+#define _HEARTS_H_
 
 #include "Point.h"
 #include "Entity.h"
@@ -8,11 +8,11 @@
 struct SDL_Texture;
 struct Collider;
 
-class GroundEnemy : Entity
+class Hearts : Entity
 {
 public:
-	GroundEnemy(fPoint position, SDL_Texture* texture, Type type);
-	
+	Hearts(fPoint position, SDL_Texture* texture, Type type);
+
 	bool Start();
 
 	bool Update(float dt);
@@ -21,11 +21,7 @@ public:
 
 private:
 	Animation idleAnimation;
-	Animation walkAnimRight;
-
 	Animation* currentAnimation;
-
-	Collider* collider;
 };
 
-#endif // _GROUNDENEMY_H_
+#endif // _HEARTS_H_

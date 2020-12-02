@@ -39,8 +39,6 @@ CheckPoint::CheckPoint() : Module()
 	activated.PushBack({ 101,32, 12, 32 });
 	activated.loop = true;
 	activated.speed = 0.1f;
-
-
 }
 
 CheckPoint::~CheckPoint()
